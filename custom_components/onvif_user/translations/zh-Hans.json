@@ -1,0 +1,102 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "ONVIF 用户管理",
+        "description": "填写摄像头的 ONVIF 凭据（即你通过 :80 SOAP SetUser / ONVIF Device Manager 设置的密码）。集成作为原生进程直连摄像头，不经过浏览器。",
+        "data": {
+          "host": "主机 (IP)",
+          "port": "端口",
+          "username": "用户名",
+          "password": "密码"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "无法连接摄像头（检查主机/端口）。",
+      "invalid_auth": "ONVIF 凭据无效。"
+    },
+    "abort": {
+      "already_configured": "该摄像头已配置。"
+    }
+  },
+  "services": {
+    "list_users": {
+      "name": "列出 ONVIF 用户",
+      "description": "列出指定摄像头上的所有 ONVIF 用户（需提供设备地址与管理账户）。"
+    },
+    "add_user": {
+      "name": "添加 ONVIF 用户",
+      "description": "新建一个 ONVIF 用户。"
+    },
+    "modify_user": {
+      "name": "修改 ONVIF 用户",
+      "description": "修改指定 ONVIF 用户的级别和/或密码。部分摄像头在更改密码或级别时要求同时提交密码与级别，因此最稳妥的做法是两者都填。至少提供 target_password / level 之一。"
+    },
+    "delete_user": {
+      "name": "删除 ONVIF 用户",
+      "description": "删除一个 ONVIF 用户（不可撤销）。"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "连接设置",
+        "description": "可修改摄像头连接参数，保存后会立即重新加载集成。密码框留空表示保留当前密码（只改 IP / 用户名时无需重输密码）。",
+        "data": {
+          "host": "主机 (IP)",
+          "port": "端口",
+          "username": "用户名",
+          "password": "密码（留空保留）"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "无法连接摄像头（检查主机/端口）。",
+      "invalid_auth": "ONVIF 凭据无效。"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "user_count": { "name": "用户数量" },
+      "last_operation": { "name": "上次操作结果" }
+    },
+    "button": {
+      "refresh_users": { "name": "刷新" },
+      "submit": { "name": "提交" }
+    },
+    "select": {
+      "action": {
+        "name": "操作",
+        "options": {
+          "create": "创建",
+          "modify": "修改",
+          "delete": "删除"
+        },
+        "state": {
+          "create": "创建",
+          "modify": "修改",
+          "delete": "删除"
+        }
+      },
+      "level": {
+        "name": "级别",
+        "options": {
+          "Administrator": "管理员",
+          "Operator": "操作员",
+          "User": "普通用户"
+        },
+        "state": {
+          "Administrator": "管理员",
+          "Operator": "操作员",
+          "User": "普通用户"
+        }
+      },
+      "target": { "name": "目标用户" }
+    },
+    "text": {
+      "username": { "name": "用户名" },
+      "password": { "name": "密码" }
+    }
+  }
+}

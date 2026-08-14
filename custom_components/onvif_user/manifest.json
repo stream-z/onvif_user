@@ -1,0 +1,11 @@
+{
+  "domain": "onvif_user",
+  "name": "ONVIF User Manager",
+  "config_flow": true,
+  "homeassistant": "2023.12.0",
+  "iot_class": "local_polling",
+  "requirements": [],
+  "version": "1.0.0",
+  "codeowners": ["@stream-z"],
+  "description": "Manage ONVIF users (list/add/set password/set level/delete) on any standard ONVIF camera (e.g. Dahua, Hikvision, Axis, and others) whose web UI stripped the ONVIF user page. Uses the :80 SOAP API with HTTP Digest auth."
+}

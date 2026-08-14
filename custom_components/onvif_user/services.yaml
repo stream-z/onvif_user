@@ -1,0 +1,209 @@
+# Camera-management services: each call carries the device connection + the
+# ONVIF management account, so you can manage any ONVIF camera directly.
+# Results are returned to the caller
+# (Developer Tools -> response / script response_variable).
+
+list_users:
+  name: List ONVIF users
+  description: >
+    List all ONVIF users on a camera. Provide the device connection and the
+    ONVIF management account (credentials allowed to call GetUsers).
+  fields:
+    host:
+      name: Host
+      description: Camera IP or hostname.
+      required: true
+      example: 192.168.1.x
+      selector:
+        text: {}
+    port:
+      name: Port
+      description: ONVIF device port (usually 80).
+      required: true
+      example: 80
+      selector:
+        number:
+          mode: box
+          min: 1
+          max: 65535
+    username:
+      name: Management username
+      description: ONVIF account with permission to read users.
+      required: true
+      example: admin
+      selector:
+        text: {}
+    password:
+      name: Management password
+      description: Password of the management account.
+      required: true
+      example: password
+      selector:
+        text: {}
+
+add_user:
+  name: Add ONVIF user
+  description: Create a new ONVIF user (CreateUsers).
+  fields:
+    host:
+      name: Host
+      description: Camera IP or hostname.
+      required: true
+      example: 192.168.1.x
+      selector:
+        text: {}
+    port:
+      name: Port
+      description: ONVIF device port (usually 80).
+      required: true
+      example: 80
+      selector:
+        number:
+          mode: box
+          min: 1
+          max: 65535
+    username:
+      name: Management username
+      description: ONVIF account with permission to create users.
+      required: true
+      example: admin
+      selector:
+        text: {}
+    password:
+      name: Management password
+      description: Password of the management account.
+      required: true
+      example: password
+      selector:
+        text: {}
+    target_username:
+      name: New username
+      description: Username of the user to create.
+      required: true
+      example: cam2
+      selector:
+        text: {}
+    target_password:
+      name: New password
+      description: Password for the new user.
+      required: true
+      selector:
+        text: {}
+    level:
+      name: Level
+      description: User level.
+      required: false
+      example: User
+      default: User
+      selector:
+        select:
+          mode: dropdown
+          options:
+            - Administrator
+            - Operator
+            - User
+
+modify_user:
+  name: Modify ONVIF user
+  description: >
+    Change a user's level and/or password. Provide target_username plus at
+    least one of target_password / level. Some cameras require both password
+    and level when changing either, so it's safest to always provide both.
+  fields:
+    host:
+      name: Host
+      description: Camera IP or hostname.
+      required: true
+      example: 192.168.1.x
+      selector:
+        text: {}
+    port:
+      name: Port
+      description: ONVIF device port (usually 80).
+      required: true
+      example: 80
+      selector:
+        number:
+          mode: box
+          min: 1
+          max: 65535
+    username:
+      name: Management username
+      description: ONVIF account with permission to modify users.
+      required: true
+      example: admin
+      selector:
+        text: {}
+    password:
+      name: Management password
+      description: Password of the management account.
+      required: true
+      example: password
+      selector:
+        text: {}
+    target_username:
+      name: Target username
+      description: The user to modify.
+      required: true
+      selector:
+        text: {}
+    target_password:
+      name: New password
+      description: Optional new password for the target user.
+      required: false
+      selector:
+        text: {}
+    level:
+      name: Level
+      description: Optional new level for the target user.
+      required: false
+      example: Operator
+      selector:
+        select:
+          mode: dropdown
+          options:
+            - Administrator
+            - Operator
+            - User
+
+delete_user:
+  name: Delete ONVIF user
+  description: Delete an ONVIF user (DeleteUsers). Irreversible.
+  fields:
+    host:
+      name: Host
+      description: Camera IP or hostname.
+      required: true
+      example: 192.168.1.x
+      selector:
+        text: {}
+    port:
+      name: Port
+      description: ONVIF device port (usually 80).
+      required: true
+      example: 80
+      selector:
+        number:
+          mode: box
+          min: 1
+          max: 65535
+    username:
+      name: Management username
+      description: ONVIF account with permission to delete users.
+      required: true
+      example: admin
+      selector:
+        text: {}
+    password:
+      name: Management password
+      description: Password of the management account.
+      required: true
+      example: password
+      selector:
+        text: {}
+    target_username:
+      name: Target username
+      description: The user to delete.
+      required: true
+      selector:
+        text: {}

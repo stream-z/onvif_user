@@ -1,0 +1,102 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "ONVIF User Manager",
+        "description": "Enter the camera's ONVIF credentials (the password you set via the :80 SOAP SetUser / ONVIF Device Manager). The native integration talks straight to the camera, no browser involved.",
+        "data": {
+          "host": "Host (IP)",
+          "port": "Port",
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not connect to the camera (check host/port).",
+      "invalid_auth": "Invalid ONVIF credentials."
+    },
+    "abort": {
+      "already_configured": "This camera is already configured."
+    }
+  },
+  "services": {
+    "list_users": {
+      "name": "List ONVIF users",
+      "description": "List all ONVIF users on a camera (pass host + management account)."
+    },
+    "add_user": {
+      "name": "Add ONVIF user",
+      "description": "Create a new ONVIF user."
+    },
+    "modify_user": {
+      "name": "Modify ONVIF user",
+      "description": "Change a user's level and/or password. Some cameras require both password and level when changing either, so it's safest to always provide both. Provide at least one of target_password / level."
+    },
+    "delete_user": {
+      "name": "Delete ONVIF user",
+      "description": "Delete an ONVIF user (irreversible)."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Connection settings",
+        "description": "Edit the camera connection parameters. Saving reloads the integration immediately. Leave the password blank to keep the current one (no need to re-type it when only changing IP / username).",
+        "data": {
+          "host": "Host (IP)",
+          "port": "Port",
+          "username": "Username",
+          "password": "Password (blank = keep)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not connect to the camera (check host/port).",
+      "invalid_auth": "Invalid ONVIF credentials."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "user_count": { "name": "User Count" },
+      "last_operation": { "name": "Last Operation Result" }
+    },
+    "button": {
+      "refresh_users": { "name": "Refresh" },
+      "submit": { "name": "Submit" }
+    },
+    "select": {
+      "action": {
+        "name": "Action",
+        "options": {
+          "create": "Create",
+          "modify": "Modify",
+          "delete": "Delete"
+        },
+        "state": {
+          "create": "Create",
+          "modify": "Modify",
+          "delete": "Delete"
+        }
+      },
+      "level": {
+        "name": "Level",
+        "options": {
+          "Administrator": "Administrator",
+          "Operator": "Operator",
+          "User": "User"
+        },
+        "state": {
+          "Administrator": "Administrator",
+          "Operator": "Operator",
+          "User": "User"
+        }
+      },
+      "target": { "name": "Target User" }
+    },
+    "text": {
+      "username": { "name": "Username" },
+      "password": { "name": "Password" }
+    }
+  }
+}
