@@ -140,6 +140,15 @@ Delete a user — **irreversible**.
 
 ## Changelog
 
+### v1.1.1
+
+- **Raise HACS minimum-version to 2026.3**: moved the `homeassistant` requirement out of
+  `manifest.json` (where it was an invalid, ignored key) into `hacs.json`. The floor is now
+  **2026.3** because the bundled custom `brand/` icon is only rendered by Home Assistant from
+  2026.3 onward (local brand images for custom integrations were introduced in 2026.3); on
+  older versions the icon is silently dropped. This also covers the 2024.11 `config_entry`-
+  aware `async_supports_options_flow` our service-only mode relies on.
+
 ### v1.1.0
 
 - **Service-only setup mode**: the config flow now offers a *Register services only*
