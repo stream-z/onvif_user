@@ -3,6 +3,13 @@
     "step": {
       "user": {
         "title": "ONVIF 用户管理",
+        "description": "选择添加方式。",
+        "data": {
+          "mode": "添加方式"
+        }
+      },
+      "device": {
+        "title": "摄像头凭据",
         "description": "填写摄像头的 ONVIF 凭据（即你通过 :80 SOAP SetUser / ONVIF Device Manager 设置的密码）。集成作为原生进程直连摄像头，不经过浏览器。",
         "data": {
           "host": "主机 (IP)",
@@ -17,7 +24,16 @@
       "invalid_auth": "ONVIF 凭据无效。"
     },
     "abort": {
-      "already_configured": "该摄像头已配置。"
+      "already_configured": "该摄像头已配置。",
+      "no_options": "该条目仅用于注册服务，无需额外配置。"
+    }
+  },
+  "selector": {
+    "setup_mode": {
+      "options": {
+        "device": "添加摄像头（界面实体）",
+        "service_only": "仅注册服务（不绑定设备）"
+      }
     }
   },
   "services": {

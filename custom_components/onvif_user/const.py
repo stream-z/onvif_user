@@ -4,6 +4,11 @@ from homeassistant.helpers.entity import DeviceInfo
 
 DOMAIN = "onvif_user"
 
+# Config-flow entry modes. A "service_only" entry carries no device connection
+# and exists purely to load the component so the standalone ONVIF user-management
+# services are registered without binding any camera.
+MODE_SERVICE = "service_only"
+
 # Platforms forwarded by the integration (kept in one place so setup/unload
 # always stay symmetric — a mismatch causes "already been setup" on reload).
 PLATFORMS = ("sensor", "button", "text", "select")

@@ -3,6 +3,13 @@
     "step": {
       "user": {
         "title": "ONVIF User Manager",
+        "description": "Choose how to set up this integration.",
+        "data": {
+          "mode": "Setup mode"
+        }
+      },
+      "device": {
+        "title": "Camera credentials",
         "description": "Enter the camera's ONVIF credentials (the password you set via the :80 SOAP SetUser / ONVIF Device Manager). The native integration talks straight to the camera, no browser involved.",
         "data": {
           "host": "Host (IP)",
@@ -17,7 +24,16 @@
       "invalid_auth": "Invalid ONVIF credentials."
     },
     "abort": {
-      "already_configured": "This camera is already configured."
+      "already_configured": "This camera is already configured.",
+      "no_options": "This entry only registers the standalone services and has nothing to configure."
+    }
+  },
+  "selector": {
+    "setup_mode": {
+      "options": {
+        "device": "Add a camera (UI entities)",
+        "service_only": "Register services only (no device)"
+      }
     }
   },
   "services": {

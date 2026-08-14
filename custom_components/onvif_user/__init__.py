@@ -27,6 +27,7 @@ from .const import (
     SERVICE_DELETE,
     SERVICE_LIST,
     SERVICE_MODIFY,
+    MODE_SERVICE,
 )
 from .coordinator import OnvifUserCoordinator
 
@@ -73,9 +74,6 @@ SERVICE_SCHEMAS = {
         }
     ),
 }
-
-SERVICE_HANDLERS = {}
-
 
 def _client(call: ServiceCall) -> OnvifUserClient:
     """Build a one-shot client from the call's connection + management creds.
@@ -155,6 +153,32 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.data.setdefault(DOMAIN, {})
+
+    if entry.data.get("mode") == MODE_SERVICE:
+        # Services are already registered at the component level (async_setup),
+        # so a service-only entry just needs to keep the component loaded. We
+        # bind nothing — no client, no coordinator, no entities.
+        hass.data[DOMAIN][entry.entry_id] = {}
+        return True
+
+    # A "services only" entry is a bootstrap placeholder that merely keeps the
+    # component loaded so the standalone services register before any camera is
+    # configured. Now that a real device entry exists it is redundant, so remove
+    # it. Fire-and-forget (not awaited) to avoid re-entrancy during this entry's
+    # own setup; the placeholder carries no entities or sessions to tear down.
+    for so_entry in hass.config_entries.async_entries(DOMAIN):
+        if (
+            so_entry.entry_id != entry.entry_id
+            and so_entry.data.get("mode") == MODE_SERVICE
+        ):
+            _LOGGER.info(
+                "Removing redundant 'services only' entry %s (a device is now "
+                "configured)",
+                so_entry.title,
+            )
+            hass.async_create_task(
+                hass.config_entries.async_remove(so_entry.entry_id)
+            )
 
     session = aiohttp.ClientSession()
     client = OnvifUserClient(

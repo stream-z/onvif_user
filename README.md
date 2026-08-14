@@ -17,7 +17,7 @@ so no browser, no CORS, and no extra relay is involved.
 - **Unified management form** in the entity card: pick an action (create / modify /
   delete), pick the target user, set level + password, hit **Submit**.
 - **Standalone services** for automations / Developer Tools — no config entry needed.
-- **Live user list** (`select.onvif_user_target`) auto-populated by polling the camera.
+- **Live user list** (`select.onvif_user_target`) refreshed on demand (refresh button / service / after a write).
 - **Last operation result** sensor with bilingual, system-language-aware messages.
 - **Config flow** (UI setup) + options flow (edit connection without re-entering password).
 - **Bilingual**: Simplified Chinese (`zh-Hans`) and English (`en`).
@@ -127,7 +127,7 @@ Delete a user — **irreversible**.
 
 ## Notes / Limitations
 
-- The integration polls the device on demand (refresh button / service / after a
+- The integration fetches from the device on demand (refresh button / service / after a
   write); it does **not** run a continuous interval. `iot_class` is `local_polling`.
 - The last-operation-result sensor text follows the **system** language
   (`Settings → General → Language`), not the per-user profile language.
@@ -135,6 +135,28 @@ Delete a user — **irreversible**.
   rename, delete and re-add the integration.
 - Credentials are stored in the HA config entry (encrypted at rest) and used only to
   talk to the camera. No data leaves your network.
+
+---
+
+## Changelog
+
+### v1.1.0
+
+- **Service-only setup mode**: the config flow now offers a *Register services only*
+  option that creates an empty entry purely to load the integration, so the four
+  standalone services (`list_users` / `add_user` / `modify_user` / `delete_user`) are
+  registered before any camera is configured. The redundant service-only entry is
+  removed automatically once a real camera entry exists, and its *Configure* button is
+  hidden (HA 2024.11+).
+- **Bilingual config flow & options flow** (Simplified Chinese `zh-Hans` + English `en`),
+  plus a localised *Setup mode* selector.
+- **Entry title follows the system language** (e.g. `ONVIF 用户管理（仅服务）` on a
+  Chinese system, `ONVIF User Manager (services only)` otherwise).
+
+### v1.0.0
+
+- Initial release: unified management form, standalone services, live user list,
+  last-operation result sensor, on-demand refresh.
 
 ---
 
